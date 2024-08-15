@@ -21,12 +21,12 @@ class Recipe extends Model
 
     public function ingredients() : BelongsToMany
     {
-        return $this->belongsToMany(Ingredient::class)->withPivot('quantity');
+        return $this->belongsToMany(Ingredient::class, 'recipe_ingredients')->withPivot('quantity');
     }
 
     public function categories() : BelongsToMany
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, 'recipe_categories');
     }
 
     public function comments() : HasMany

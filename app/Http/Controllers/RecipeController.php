@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class RecipeController extends Controller
@@ -11,9 +12,11 @@ class RecipeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
+    public function index(): View
     {
-        return view('dashboard.recipes.index');
+        $recipes = Recipe::with('categories')->latest()->paginate(10);
+//        dd($recipes->user);
+        return view('dashboard.recipes.index', compact('recipes'));
     }
 
     /**
