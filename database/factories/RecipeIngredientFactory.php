@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Ingredient;
+use App\Models\Recipe;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,8 @@ class RecipeIngredientFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'recipe_id' => Recipe::all()->random()->id,
+            'ingredient_id' => Ingredient::all()->id
         ];
     }
 }
