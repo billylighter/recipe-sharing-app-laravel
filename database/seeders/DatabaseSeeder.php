@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\RecipeCategory;
 use App\Models\RecipeIngredient;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
          Category::factory(10)->create();
          Ingredient::factory(10)->create();
          Recipe::factory(10)->create();
+         RecipeCategory::factory(10)->create();
          RecipeIngredient::factory(20)->create();
     }
 }

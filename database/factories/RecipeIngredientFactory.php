@@ -20,7 +20,8 @@ class RecipeIngredientFactory extends Factory
     {
         return [
             'recipe_id' => Recipe::all()->random()->id,
-            'ingredient_id' => Ingredient::all()->id
+            'ingredient_id' => Ingredient::all()->random()->id,
+            'quantity' => fake()->numberBetween(1, 5)
         ];
     }
 }
