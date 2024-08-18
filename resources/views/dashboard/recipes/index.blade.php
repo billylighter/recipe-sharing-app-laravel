@@ -55,7 +55,9 @@
                                                         {{$recipe->user->name}}
                                                     </a>
                                                 </p>
-                                                <p class="text-gray-600">Co-Founder / CTO</p>
+                                                <p class="text-gray-600">
+                                                    {{$recipe->user->position}}
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="text-right pt-5 max-w-full w-full">

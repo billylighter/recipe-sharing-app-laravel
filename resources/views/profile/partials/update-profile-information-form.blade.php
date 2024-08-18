@@ -24,6 +24,20 @@
         </div>
 
         <div>
+            <x-input-label for="position" :value="__('Position')" />
+            <x-text-input id="position" name="position" type="text" class="mt-1 block w-full" :value="old('position', $user->position)" autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('position')" />
+        </div>
+
+        <div>
+            <label for="bio" class="block mb-2 text-sm font-medium text-gray-700">
+                {{__('Bio')}}
+            </label>
+            <textarea id="bio" name="bio" rows="4" class="block p-2.5 w-full text-sm text-gray-700 bg-white rounded border border-gray-300 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-400" placeholder="Write your thoughts here...">{{old('bio', $user->bio)}}</textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('bio')" />
+        </div>
+
+        <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
