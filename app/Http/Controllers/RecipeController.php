@@ -15,7 +15,6 @@ class RecipeController extends Controller
     public function index(): View
     {
         $recipes = Recipe::with('categories')->latest()->paginate(10);
-//        dd($recipes->user);
         return view('dashboard.recipes.index', compact('recipes'));
     }
 
@@ -40,7 +39,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        //
+        return view('dashboard.recipes.show', compact('recipe'));
     }
 
     /**

@@ -20,7 +20,7 @@ class RecipeFactory extends Factory
         return [
             'user_id' => User::all()->random()->id,
             'title' => fake()->word(3),
-            'description' => fake()->text(),
+            'description' => fake()->paragraph(10),
             'instructions' => fake()->text()
         ];
     }
