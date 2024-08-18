@@ -14,7 +14,7 @@ class RecipeController extends Controller
      */
     public function index(): View
     {
-        $recipes = Recipe::with('categories')->latest()->paginate(10);
+        $recipes = Recipe::with('categories')->latest()->paginate(6);
         return view('dashboard.recipes.index', compact('recipes'));
     }
 

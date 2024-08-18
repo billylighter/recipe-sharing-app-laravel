@@ -83,8 +83,13 @@
 
                                 @endforelse
 
-                                <!-- More posts... -->
                             </div>
+
+                            <div class="mt-10">
+                                <!-- More posts... -->
+                                {{$recipes->links()}}
+                            </div>
+
                         </div>
                     </div>
 
