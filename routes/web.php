@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
@@ -32,5 +34,13 @@ Route::middleware('auth')->group(function () {
 Route::resource('recipes', RecipeController::class)
     ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy'])
     ->middleware(['auth']);
+
+Route::get('/recipes/ingredients/{ingredient}', [IngredientController::class, 'show'])
+    ->middleware(['auth'])
+    ->name('ingredients');
+
+Route::get('/recipes/categories/{category}', [CategoryController::class, 'show'])
+    ->middleware(['auth'])
+    ->name('categories');
 
 require __DIR__.'/auth.php';

@@ -36,7 +36,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $recipes = $category->recipes()->with('categories')->latest()->paginate(6);
+        return view('dashboard.recipes.index', compact('recipes'));
     }
 
     /**

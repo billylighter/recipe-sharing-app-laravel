@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
@@ -36,7 +37,8 @@ class IngredientController extends Controller
      */
     public function show(Ingredient $ingredient)
     {
-        //
+        $recipes = $ingredient->recipes()->with('categories')->latest()->paginate(6);
+        return view('dashboard.recipes.index', compact('recipes'));
     }
 
     /**
