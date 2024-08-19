@@ -18,7 +18,7 @@ class RecipeController extends Controller
     {
         $title = __('My recipes');
         $taxonomy = '';
-        $recipes = Recipe::with('categories')->latest()->paginate(6);
+        $recipes = Recipe::with('categories', 'user')->where('user_id', Auth::id())->latest()->paginate(6);
         return view('dashboard.recipes.index', compact('recipes', 'title', 'taxonomy'));
     }
 

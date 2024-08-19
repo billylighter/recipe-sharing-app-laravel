@@ -12,7 +12,9 @@
                     <div
                         class="text-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
                         role="alert">
-                        <span class="font-medium">Success!</span>
+                        <span class="font-medium">
+                            {{__('Success!')}}
+                        </span>
                         <br>
                         <span>
                              @if (session('success'))
@@ -61,9 +63,41 @@
                                     </div>
                                     <div class="group relative">
 
-                                        <h1 class="mt-10 mb-10 text-5xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                                            {{$recipe->title}}
-                                        </h1>
+                                       <div class="flex justify-between items-center">
+                                           <h1 class="mt-10 mb-10 text-5xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                               {{$recipe->title}}
+                                           </h1>
+
+                                           @if ($recipe->user->is(auth()->user()))
+                                               <x-dropdown>
+                                                   <x-slot name="trigger">
+                                                       <button>
+                                                           <svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="h-4 w-4 text-gray-400"
+                                                                viewBox="0 0 20 20" fill="currentColor">
+                                                               <path
+                                                                   d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                                           </svg>
+                                                       </button>
+                                                   </x-slot>
+                                                   <x-slot name="content">
+                                                       <x-dropdown-link :href="route('recipes.edit', $recipe)">
+                                                           {{ __('Edit') }}
+                                                       </x-dropdown-link>
+                                                       <form method="POST"
+                                                             action="{{ route('recipes.destroy', $recipe) }}">
+                                                           @csrf
+                                                           @method('delete')
+                                                           <x-dropdown-link
+                                                               :href="route('recipes.destroy', $recipe)"
+                                                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                                               {{ __('Delete') }}
+                                                           </x-dropdown-link>
+                                                       </form>
+                                                   </x-slot>
+                                               </x-dropdown>
+                                           @endif
+                                       </div>
 
                                         @if($recipe->ingredients)
                                             <div class="mb-5">
@@ -140,47 +174,56 @@
 
                                         @forelse($comments as $comment)
 
-                                            <article class="p-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                                            <article
+                                                class="p-6 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                                                 <footer class="flex justify-between items-center mb-2">
                                                     <div class="flex items-center">
-                                                        <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img
+                                                        <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                                                            <img
                                                                 class="mr-2 w-6 h-6 rounded-full"
                                                                 src="https://flowbite.com/docs/images/people/profile-picture-4.jpg"
                                                                 alt="Helene Engels">
                                                             {{$comment->user->name}}
                                                         </p>
                                                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                                                            <time pubdate datetime="{{ $comment->created_at->format('j M Y') }}"
+                                                            <time pubdate
+                                                                  datetime="{{ $comment->created_at->format('j M Y') }}"
                                                                   title="{{ $comment->created_at->format('j M Y') }}">
                                                                 {{ $comment->created_at->format('j M Y') }}
-                                                            </time></p>
+                                                            </time>
+                                                        </p>
                                                     </div>
-                                                    <button id="dropdownComment4Button" data-dropdown-toggle="dropdownComment4"
-                                                            class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-40 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                                            type="button">
-                                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                                                            <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
-                                                        </svg>
-                                                    </button>
-                                                    <!-- Dropdown menu -->
-                                                    <div id="dropdownComment4"
-                                                         class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                            aria-labelledby="dropdownMenuIconHorizontalButton">
-                                                            <li>
-                                                                <a href="#"
-                                                                   class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#"
-                                                                   class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="#"
-                                                                   class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+
+                                                    @if ($comment->user->is(auth()->user()))
+                                                        <x-dropdown>
+                                                            <x-slot name="trigger">
+                                                                <button>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                         class="h-4 w-4 text-gray-400"
+                                                                         viewBox="0 0 20 20" fill="currentColor">
+                                                                        <path
+                                                                            d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                                                    </svg>
+                                                                </button>
+                                                            </x-slot>
+                                                            <x-slot name="content">
+                                                                <x-dropdown-link :href="route('recipes.edit', $recipe)">
+                                                                    {{ __('Edit') }}
+                                                                </x-dropdown-link>
+                                                                <form method="POST"
+                                                                      action="{{ route('recipes.destroy', $recipe) }}">
+                                                                    @csrf
+                                                                    @method('delete')
+                                                                    <x-dropdown-link
+                                                                        :href="route('recipes.destroy', $recipe)"
+                                                                        onclick="event.preventDefault(); this.closest('form').submit();">
+                                                                        {{ __('Delete') }}
+                                                                    </x-dropdown-link>
+                                                                </form>
+                                                            </x-slot>
+                                                        </x-dropdown>
+                                                    @endif
+
                                                 </footer>
                                                 <p class="text-gray-500 dark:text-gray-400">
                                                     {!! $comment->comment !!}
