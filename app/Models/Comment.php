@@ -10,7 +10,7 @@ class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['recipe_id', 'user_id', 'content'];
+    protected $fillable = ['recipe_id', 'user_id', 'comment'];
 
     /**
      * Get the recipe that the comment belongs to.

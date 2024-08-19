@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -28,7 +29,15 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'recipe_id' => ['int'],
+            'comment' => ['required', 'string', 'max:255']
+        ]);
+
+        $request->user()->comments()->create($validated);
+
+        return redirect()->route('recipes.show', $request->input('recipe_id'))
+            ->with('success', 'Comment added successfully!');
     }
 
     /**

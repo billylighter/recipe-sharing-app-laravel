@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Recipe;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -41,7 +43,9 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        return view('dashboard.recipes.show', compact('recipe'));
+      $comments = Comment::with('user')->where('recipe_id', $recipe->id)->latest()->paginate(5);
+
+        return view('dashboard.recipes.show', compact('recipe', 'comments'));
     }
 
     /**

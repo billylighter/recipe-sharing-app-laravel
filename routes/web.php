@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
@@ -42,5 +43,9 @@ Route::get('/recipes/ingredients/{ingredient}', [IngredientController::class, 's
 Route::get('/recipes/categories/{category}', [CategoryController::class, 'show'])
     ->middleware(['auth'])
     ->name('categories');
+
+Route::resource('comments', CommentController::class)
+    ->only(['store', 'update', 'destroy'])
+    ->middleware(['auth']);
 
 require __DIR__.'/auth.php';
