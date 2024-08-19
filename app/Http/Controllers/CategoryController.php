@@ -37,7 +37,9 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         $recipes = $category->recipes()->with('categories')->latest()->paginate(6);
-        return view('dashboard.recipes.index', compact('recipes'));
+        $title = __('Recipes by category:');
+        $taxonomy = $category->name;
+        return view('dashboard.recipes.index', compact('recipes', 'title', 'taxonomy'));
     }
 
     /**

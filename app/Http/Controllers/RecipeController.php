@@ -14,8 +14,10 @@ class RecipeController extends Controller
      */
     public function index(): View
     {
+        $title = __('My recipes');
+        $taxonomy = '';
         $recipes = Recipe::with('categories')->latest()->paginate(6);
-        return view('dashboard.recipes.index', compact('recipes'));
+        return view('dashboard.recipes.index', compact('recipes', 'title', 'taxonomy'));
     }
 
     /**

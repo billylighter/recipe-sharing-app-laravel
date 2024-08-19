@@ -38,7 +38,9 @@ class IngredientController extends Controller
     public function show(Ingredient $ingredient)
     {
         $recipes = $ingredient->recipes()->with('categories')->latest()->paginate(6);
-        return view('dashboard.recipes.index', compact('recipes'));
+        $title = __('Recipes by ingredient:');
+        $taxonomy = $ingredient->name;
+        return view('dashboard.recipes.index', compact('recipes', 'title', 'taxonomy'));
     }
 
     /**
