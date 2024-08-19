@@ -90,7 +90,7 @@
                                                            @method('delete')
                                                            <x-dropdown-link
                                                                :href="route('recipes.destroy', $recipe)"
-                                                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                                               onclick="event.preventDefault(); this.closest('form').submit();return confirm('Are you sure?')">
                                                                {{ __('Delete') }}
                                                            </x-dropdown-link>
                                                        </form>
